@@ -6,21 +6,14 @@
 </head>
 <?php 
 	if(isset($_POST['poly'])){
-		$str = strtolower($_POST['poly']);
-		$str = preg_replace('/[\s+()_,.-\/]/', '', $str);
-		$half1 = ''; $half2 = '';
-  		$l = strlen($str);
-  	if($l%2==0)
-  	{
-  		$half1 = substr($str,0,0.5*$l);
-  		$half2 = substr($str,0.5*$l);
-  	}else{
-  		$half1 = substr($str,0,(0.5*($l-1)));
-  		$half2 = substr($str,0.5*($l+1));
-  	}
-  		$half1 = strrev($half1);
-  		//echo $half1.' - '.$half2;
-  		echo $half1 === $half2 ? 'polindrome':'not polindrome'; 
+		$str = mb_strtolower($_POST['poly']);
+		$str = preg_replace('/[\s+()_,-.-\/]/', '', $str);
+		$newString = '';
+		for($i = mb_strlen($str); $i >= 0; $i--)
+		{
+			$newString .= mb_substr($str,$i,1);
+		}
+  		echo $str === $newString ? 'polindrome':'not polindrome'; 
 	}
 ?>
 <body>
